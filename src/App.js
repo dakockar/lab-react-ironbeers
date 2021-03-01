@@ -43,11 +43,18 @@ class App extends Component {
     axios.post("https://ih-beers-api2.herokuapp.com/beers/new", newBeer)
       .then((result) => {
         console.log(result);
+        // console.log(result.config.data);
+        // console.log(result.config.data.name);
+        // console.log(result.config.data.tagline);
+        // console.log(result.data.message);
+
+        // I couldn't find the object to set the state in the response, 
+        // so it is added to the database but not showing on the list
         this.setState({
-          beers: [...this.state.beers, result.data],
-          clonedBeers: [...this.state.clonedBeers, result.data]
+          beers: [...this.state.beers, result.config.data],
+          clonedBeers: [...this.state.clonedBeers, result.config.data]
         }, () => {
-          console.log(this.props);
+          // console.log(this.props);
           this.props.history.push("/beers");
         })
       })
@@ -62,7 +69,7 @@ class App extends Component {
 
     axios.get(`https://ih-beers-api2.herokuapp.com/beers/search?q=${query}`)
       .then((result) => {
-        // console.log(result.data);
+        console.log(result.data);
         this.setState({
           clonedBeers: result.data
         })
